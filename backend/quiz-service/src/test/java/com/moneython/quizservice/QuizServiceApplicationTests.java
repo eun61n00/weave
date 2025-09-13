@@ -1,4 +1,4 @@
-package com.moneython.quizservice;
+package com.weave.quizservice;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

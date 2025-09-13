@@ -1,4 +1,4 @@
-package com.moneython.configserver;
+package com.weave.configserver;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

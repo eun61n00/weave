@@ -1,4 +1,4 @@
-package com.moneython.authservice;
+package com.weave.authservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

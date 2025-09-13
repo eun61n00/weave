@@ -1,4 +1,4 @@
-package com.moneython.common;
+package com.weave.common;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

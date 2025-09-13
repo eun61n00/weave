@@ -1,4 +1,4 @@
-package com.moneython.userservice;
+package com.weave.userservice;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
