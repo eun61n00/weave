@@ -1,5 +1,5 @@
 allprojects {
-	group = 'com.moneython'
+	group = 'com.weave'
 	version = '1.0.0'
 	repositories {
 		mavenCentral()
