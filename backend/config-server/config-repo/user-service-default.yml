@@ -1,5 +1,6 @@
 server:
     port: 8082
+    port: 8082
 
 spring:
     application:
@@ -15,6 +16,15 @@ spring:
         database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 eureka:
+    client:
+        register-with-eureka: true
+        fetch-registry: true
+        service-url:
+            defaultZone: http://eureka-server:8761/eureka
+    instance:
+        prefer-ip-address: true
+        hostname: user-service
+
     client:
         register-with-eureka: true
         fetch-registry: true
