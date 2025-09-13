@@ -8,7 +8,7 @@ spring:
         config:
             server:
                 git:
-                    uri: https://github.com/eun61n00/moneython
+                    uri: https://github.com/eun61n00/weave
                     search-paths: backend/config-server/config-repo
                     default-label: prod
 
