@@ -2,12 +2,12 @@ version: "3.8"
 
 services:
     eureka-server:
-        image: eun61n/moneython-eureka-server:latest
+    image: eun61n/weave-eureka-server:latest
         container_name: eureka-server
         ports:
             - "8761:8761"
         networks:
-            - moneython-networks
+            - weave-networks
         healthcheck:
             test:
                 [
@@ -22,14 +22,14 @@ services:
             start_period: 40s
 
     config-server:
-        image: eun61n/moneython-config-server:latest
+    image: eun61n/weave-config-server:latest
         container_name: config-server
         ports:
             - "8888:8888"
         environment:
-            - GIT_REPO=https://github.com/eun61n00/moneython
+            - GIT_REPO=https://github.com/eun61n00/weave
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             - eureka-server
         healthcheck:
@@ -46,12 +46,12 @@ services:
             start_period: 40s
 
     auth-service:
-        image: eun61n/moneython-auth-service:latest
+    image: eun61n/weave-auth-service:latest
         container_name: auth-service
         ports:
             - "8081:8081"
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             config-server:
                 condition: service_healthy
@@ -59,12 +59,12 @@ services:
                 condition: service_healthy
 
     user-service:
-        image: eun61n/moneython-user-service:latest
+    image: eun61n/weave-user-service:latest
         container_name: user-service
         ports:
             - "8082:8082"
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             config-server:
                 condition: service_healthy
@@ -72,12 +72,12 @@ services:
                 condition: service_healthy
 
     quiz-service:
-        image: eun61n/moneython-quiz-service:latest
+    image: eun61n/weave-quiz-service:latest
         container_name: quiz-service
         ports:
             - "8083:8083"
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             config-server:
                 condition: service_healthy
@@ -85,12 +85,12 @@ services:
                 condition: service_healthy
 
     gateway:
-        image: eun61n/moneython-gateway:latest
+    image: eun61n/weave-gateway:latest
         container_name: gateway
         ports:
             - "8080:8080"
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             config-server:
                 condition: service_healthy
@@ -104,5 +104,5 @@ services:
                 condition: service_started
 
 networks:
-    moneython-networks:
+    weave-networks:
         driver: bridge

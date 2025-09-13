@@ -6,11 +6,11 @@ services:
             context: .
             dockerfile: eureka-server/Dockerfile
         container_name: eureka-server
-        image: ${DOCKER_USER:-eun61n}/moneython-eureka-server:${GIT_TAG:-latest}
+    image: ${DOCKER_USER:-eun61n}/weave-eureka-server:${GIT_TAG:-latest}
         ports:
             - "8761:8761"
         networks:
-            - moneython-networks
+            - weave-networks
         healthcheck:
             test:
                 [
@@ -29,13 +29,13 @@ services:
             context: .
             dockerfile: config-server/Dockerfile
         container_name: config-server
-        image: ${DOCKER_USER:-eun61n}/moneython-config-server:${GIT_TAG:-latest}
+    image: ${DOCKER_USER:-eun61n}/weave-config-server:${GIT_TAG:-latest}
         ports:
             - "8888:8888"
         environment:
-            - GIT_REPO=https://github.com/eun61n00/moneython
+            - GIT_REPO=https://github.com/eun61n00/weave
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             - eureka-server
         healthcheck:
@@ -56,11 +56,11 @@ services:
             context: .
             dockerfile: auth-service/Dockerfile
         container_name: auth-service
-        image: ${DOCKER_USER:-eun61n}/moneython-auth-service:${GIT_TAG:-latest}
+    image: ${DOCKER_USER:-eun61n}/weave-auth-service:${GIT_TAG:-latest}
         ports:
             - "8081:8081"
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             config-server:
                 condition: service_healthy
@@ -72,11 +72,11 @@ services:
             context: .
             dockerfile: user-service/Dockerfile
         container_name: user-service
-        image: ${DOCKER_USER:-eun61n}/moneython-user-service:${GIT_TAG:-latest}
+    image: ${DOCKER_USER:-eun61n}/weave-user-service:${GIT_TAG:-latest}
         ports:
             - "8082:8082"
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             config-server:
                 condition: service_healthy
@@ -88,11 +88,11 @@ services:
             context: .
             dockerfile: quiz-service/Dockerfile
         container_name: quiz-service
-        image: ${DOCKER_USER:-eun61n}/moneython-quiz-service:${GIT_TAG:-latest}
+    image: ${DOCKER_USER:-eun61n}/weave-quiz-service:${GIT_TAG:-latest}
         ports:
             - "8083:8083"
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             config-server:
                 condition: service_healthy
@@ -104,11 +104,11 @@ services:
             context: .
             dockerfile: gateway/Dockerfile
         container_name: gateway
-        image: ${DOCKER_USER:-eun61n}/moneython-gateway:${GIT_TAG:-latest}
+    image: ${DOCKER_USER:-eun61n}/weave-gateway:${GIT_TAG:-latest}
         ports:
             - "8080:8080"
         networks:
-            - moneython-networks
+            - weave-networks
         depends_on:
             config-server:
                 condition: service_healthy
@@ -122,5 +122,5 @@ services:
                 condition: service_started
 
 networks:
-    moneython-networks:
+    weave-networks:
         driver: bridge
