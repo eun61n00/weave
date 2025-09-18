@@ -12,6 +12,7 @@ spring:
     jpa:
         hibernate:
             ddl-auto: update
+        database-platform: org.hibernate.dialect.PostgreSQLDialect
 
 eureka:
     client:

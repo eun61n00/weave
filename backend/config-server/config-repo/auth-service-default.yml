@@ -5,7 +5,11 @@ spring:
     application:
         name: auth-service
     datasource:
+<<<<<<< Updated upstream
         url: jdbc:postgresql://postgres-db:5432/user_db
+=======
+        url: jdbc:postgresql://postgres-db:5432/user_service_db
+>>>>>>> Stashed changes
         username: ${POSTGRES_USER}
         password: ${POSTGRES_PASSWORD}
         driver-class-name: org.postgresql.Driver
