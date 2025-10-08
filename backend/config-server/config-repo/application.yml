@@ -2,9 +2,6 @@ spring:
   application:
     name: global-config
 
-  profiles:
-    active: default
-
   cloud:
     config:
       allow-override: true
@@ -20,4 +17,4 @@ eureka:
 
 logging:
   level:
-    root: INFO
+    root: DEBUG
