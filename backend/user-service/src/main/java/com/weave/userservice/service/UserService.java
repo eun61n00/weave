@@ -52,6 +52,12 @@ public class UserService {
         userRepository.save(user);
     }
 
+    public UserResponse getUserInfo(String userId) {
+        User user = userRepository.findById(Long.valueOf(userId))
+                .orElseThrow(() -> new WeaveException(USER_NOT_FOUND_ERROR));
+        return UserResponse.of(user);
+    }
+
     private void validateSignupRequest(SignupRequest request) {
         // validate email pattern
         String regex = "^[_a-z0-9-]+(.[_a-z0-9-]+)*@(?:\\w+\\.)+\\w+$"; // XXX@XXX.XXX
