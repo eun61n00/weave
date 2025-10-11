@@ -4,7 +4,7 @@ import com.weave.authservice.dto.request.LoginRequest;
 import com.weave.authservice.dto.request.UpdateRefreshTokenRequest;
 import com.weave.authservice.dto.response.LoginResponse;
 import com.weave.authservice.dto.response.UserResponse;
-import com.weave.authservice.util.JwtUtil;
+import com.weave.authservice.util.JwtProvider;
 import lombok.RequiredArgsConstructor;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.stereotype.Service;
@@ -29,7 +29,7 @@ interface UserServiceClient {
 public class AuthService {
 
     private final UserServiceClient userServiceClient;
-    private final JwtUtil jwtUtil;
+    private final JwtProvider jwtProvider;
 
     @Transactional
     public LoginResponse login(LoginRequest request) {
@@ -37,8 +37,8 @@ public class AuthService {
         UserResponse user = userServiceClient.checkLoginCredentials(request);
 
         // generate token
-        String accessToken = jwtUtil.generateAccessToken(user.getId(), user.getEmail());
-        String refreshToken = jwtUtil.generateRefreshToken(user.getId(), user.getEmail());
+        String accessToken = jwtProvider.generateAccessToken(user.getId(), user.getEmail());
+        String refreshToken = jwtProvider.generateRefreshToken(user.getId(), user.getEmail());
 
         // update token
         UpdateRefreshTokenRequest updateRefreshTokenRequest = new UpdateRefreshTokenRequest(user.getId(), refreshToken);
