@@ -32,16 +32,8 @@ public class SecurityConfig {
 
                 // API 엔드포인트별 접근 권한 설정
                 .authorizeHttpRequests(authorize -> authorize
-                        // 회원가입(public), 로그인/토큰갱신(internal), Swagger(docs) 경로는 인증 없이 접근 허용
-                        .requestMatchers(
-                                "/api/v1/users/signup",
-                                "/api/v1/users/check-login-credentials",
-                                "/api/v1/users/refresh-token",
-                                "/swagger-ui/**",
-                                "/v3/api-docs/**"
-                        ).permitAll()
-                        // 그 외 모든 요청은 인증 필요
-                        .anyRequest().authenticated()
+                    // Gateway에서 인증을 마쳤으므로, 내부에서는 모든 요청을 허용
+                            .requestMatchers("/**").permitAll()
                 );
 
         return http.build();

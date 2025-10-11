@@ -5,6 +5,7 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
@@ -12,21 +13,23 @@ import java.security.Key;
 import java.util.Date;
 
 @Component
-public class JwtUtil {
+public class JwtProvider {
 
-    private final Key key;
-    private final String secretKey;
-    private final long accessTokenValidTime;
-    private final long refreshTokenValidTime;
+    private Key key;
 
-    public JwtUtil(@Value("${jwt.secret.key}") String secretKey,
-                   @Value("${jwt.access.token.valid.time}") long accessTokenValidTime,
-                   @Value("${jwt.refresh.token.valid.time}") long refreshTokenValidTime) {
+    @Value("${jwt.secret.key}")
+    private String secretKey;
+
+    @Value("${jwt.access.token.valid.time}")
+    private long accessTokenValidTime;
+
+    @Value("${jwt.refresh.token.valid.time}")
+    private long refreshTokenValidTime;
+
+    @PostConstruct
+    public void init() {
         byte[] keyBytes = Decoders.BASE64.decode(secretKey);
         this.key = Keys.hmacShaKeyFor(keyBytes);
-        this.secretKey = secretKey;
-        this.accessTokenValidTime = accessTokenValidTime;
-        this.refreshTokenValidTime = refreshTokenValidTime;
     }
 
     public String generateAccessToken(Long userId, String email) {

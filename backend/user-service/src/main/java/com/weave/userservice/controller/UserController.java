@@ -36,4 +36,10 @@ public class UserController {
         userService.updateRefreshToken(request);
     }
 
+    @GetMapping("/me")
+    public ResponseEntity<UserResponse> getUserInfo(@RequestHeader("X-User-Id") String userId) {
+        UserResponse response = userService.getUserInfo(userId);
+        return ResponseEntity.ok(response);
+    }
+
 }
