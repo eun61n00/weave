@@ -17,7 +17,4 @@ eureka:
 
 logging:
   level:
-    root: INFO
-
-user-service:
-  url: http://localhost:8082    # user-service의 실제 주소로 변경
+    root: DEBUG
