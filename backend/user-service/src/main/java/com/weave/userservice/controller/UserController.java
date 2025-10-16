@@ -2,7 +2,6 @@ package com.weave.userservice.controller;
 
 import com.weave.userservice.dto.request.LoginRequest;
 import com.weave.userservice.dto.request.SignupRequest;
-import com.weave.userservice.dto.request.UpdateRefreshTokenRequest;
 import com.weave.userservice.dto.response.UserResponse;
 import com.weave.userservice.service.UserService;
 import jakarta.validation.Valid;
@@ -31,13 +30,14 @@ public class UserController {
         return response;
     }
 
-    @PostMapping("/refresh-token")
-    public void updateRefreshToken(@RequestBody UpdateRefreshTokenRequest request) {
-        userService.updateRefreshToken(request);
-    }
-
     @GetMapping("/me")
     public ResponseEntity<UserResponse> getUserInfo(@RequestHeader("X-User-Id") String userId) {
+        UserResponse response = userService.getUserInfo(userId);
+        return ResponseEntity.ok(response);
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<UserResponse> getUserInfoById(@PathVariable String userId) {
         UserResponse response = userService.getUserInfo(userId);
         return ResponseEntity.ok(response);
     }
