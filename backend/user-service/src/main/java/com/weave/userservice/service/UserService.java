@@ -1,9 +1,7 @@
 package com.weave.userservice.service;
 
-import com.weave.common.exception.WeaveException;
 import com.weave.userservice.dto.request.LoginRequest;
 import com.weave.userservice.dto.request.SignupRequest;
-import com.weave.userservice.dto.request.UpdateRefreshTokenRequest;
 import com.weave.userservice.dto.response.UserResponse;
 import com.weave.userservice.entity.User;
 import com.weave.userservice.exception.WeaveUserException;
@@ -43,14 +41,6 @@ public class UserService {
             throw new WeaveUserException(WRONG_PASSWORD_ERROR);
         }
         return UserResponse.of(user);
-    }
-
-    @Transactional
-    public void updateRefreshToken(UpdateRefreshTokenRequest request) {
-        User user = userRepository.findById(request.getUserId())
-                .orElseThrow(() -> new WeaveUserException(USER_NOT_FOUND_ERROR, request.getUserId().toString()));
-        user.setRefreshToken(request.getRefreshToken());
-        userRepository.save(user);
     }
 
     public UserResponse getUserInfo(String userId) {

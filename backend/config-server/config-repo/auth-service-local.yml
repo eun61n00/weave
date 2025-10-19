@@ -1,25 +1,37 @@
-server:
-    port: 8081
-
 spring:
     application:
         name: auth-service
-    datasource:
-        url: jdbc:postgresql://localhost:5432/auth_service_db
-        username: ${POSTGRES_USER}
-        password: ${POSTGRES_PASSWORD}
-        driver-class-name: org.postgresql.Driver
+
     jpa:
         hibernate:
-            ddl-auto: update
-        database-platform: org.hibernate.dialect.PostgreSQLDialect
+            ddl-auto: none
+        properties:
+            hibernate:
+                default_batch_fetch_size: 100
 
-eureka:
-    client:
-        register-with-eureka: true
-        fetch-registry: true
-        service-url:
-            defaultZone: http://localhost:8761/eureka
-    instance:
-        prefer-ip-address: true
-        hostname: auth-service
+    data:
+        redis:
+            host: localhost
+            port: 6379
+            password: ${REDIS_PASSWORD}
+
+    cloud:
+        openfeign:
+            client:
+                config:
+                    default:
+                        connect-timeout: 5000
+                        read-timeout: 5000
+
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health, prometheus
+
+logging:
+    level:
+        com.weave: DEBUG
+
+springdoc:
+    override-with-generic-response: false
