@@ -59,6 +59,7 @@ services:
             - "8081:8081"
         environment:
             - REDIS_PASSWORD=${REDIS_PASSWORD}
+            - CONFIG_SERVER_URL=http://config-server:8888
         networks:
             - weave-networks
         depends_on:
@@ -82,6 +83,7 @@ services:
         environment:
             - DB_USER=${POSTGRES_USER}
             - DB_PASSWORD=${POSTGRES_PASSWORD}
+            - CONFIG_SERVER_URL=http://config-server:8888
         depends_on:
             postgres-db:
                 condition: service_healthy
@@ -103,6 +105,7 @@ services:
         environment:
             - DB_USER=${POSTGRES_USER}
             - DB_PASSWORD=${POSTGRES_PASSWORD}
+            - CONFIG_SERVER_URL=http://config-server:8888
         depends_on:
             postgres-db:
                 condition: service_healthy
@@ -121,6 +124,8 @@ services:
             - "8080:8080"
         networks:
             - weave-networks
+        environment:
+            - CONFIG_SERVER_URL=http://config-server:8888
         depends_on:
             config-server:
                 condition: service_healthy
@@ -143,7 +148,7 @@ services:
             - "5432:5432"
         volumes:
             - ./init-multiple-dbs.sh:/docker-entrypoint-initdb.d/init-multiple-dbs.sh
-            - postgres-data:/var/lib/postgresql/data
+            - postgres-data:/var/lib/postgresql
         networks:
             - weave-networks
         healthcheck:
