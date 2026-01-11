@@ -35,11 +35,14 @@ jobs:
           docker compose -f docker-compose.yml build
           docker compose -f docker-compose.yml push
 
-      - name: Copy docker-compose.prod.yml to Oracle Server
-        run: |
-          echo "${{ secrets.ORACLE_KEY }}" > key.pem
-          chmod 600 key.pem
-          scp -i key.pem -o StrictHostKeyChecking=no docker-compose.prod.yml ${{ secrets.ORACLE_USER }}@${{ secrets.ORACLE_HOST }}:/home/ubuntu/weave/
+      - name: Copy docker-compose.prod.yml to EC2
+        uses: appleboy/scp-action@v0.1.7
+        with:
+          host: ${{ secrets.ORACLE_HOST }}
+          username: ${{ secrets.ORACLE_USER }}
+          key: ${{ secrets.ORACLE_KEY }}
+          source: "docker-compose.prod.yml"
+          target: "/home/ubuntu/weave/"
 
       - name: Deploy to Oracle Server
         uses: appleboy/ssh-action@v1.0.0
